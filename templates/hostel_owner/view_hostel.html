@@ -1,0 +1,46 @@
+{% extends "hostel_owner/Hostelowner_index.html" %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form id="form1" name="form1" method="post" action="">
+  <table width="200" border="1" class="table table-bordered">
+    <tr class="text-warning bg-dark">
+      <th scope="col">#</th>
+      <th scope="col">NAME</th>
+      <th scope="col">IMAGE</th>
+      <th scope="col">EMAIL</th>
+      <th scope="col">PHONE</th>
+      <th scope="col">LOCATE</th>
+      <th scope="col">&nbsp;</th>
+     
+    </tr>
+      {% for i in data %}
+    <tr class="text-white">
+      <td>{{ forloop.counter }}</td>
+      <td>{{ i.name }}</td>
+      <td><img src="{{ i.image }}" width="100" height="100"> </td>
+      <td>{{ i.email }}</td>
+      <td>{{ i.phone }}</td>
+      <td><a href="https://www.google.com/maps/?q={{ i.latitude }},{{ i.longitude }}">Locate</a></td>
+      <td><p><a href="/update_hostel/{{ i.id }}#hh" class="btn btn-success">update</a></p>
+      <p><a href="/delete_hostel/{{ i.id }}#hh" class="btn btn-success">Delete</a></p>
+      <p><a href="/add_room/{{ i.id }}#hh" class="btn btn-success">Add rooms</a></p>
+      <p><a href="/view_room/{{ i.id }}#hh" class="btn btn-success">View rooms</a></p>
+      <p><a href="/add_laundry/{{ i.id }}#hh" class="btn btn-success">Add Laundry</a></p>
+      <p><a href="/view_laundry/{{ i.id }}#hh" class="btn btn-success">View Laundry</a></p>
+      <p><a href="view_rating_review/{{ i.id }}#hh" class="btn btn-success">View rating</a></p></td>
+
+    </tr>
+      {% endfor %}
+  </table>
+</form>
+</body>
+</html>
+{% endblock %}

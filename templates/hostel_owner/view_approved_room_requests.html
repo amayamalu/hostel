@@ -1,0 +1,41 @@
+{% extends "hostel_owner/Hostelowner_index.html" %}
+{% block body %}
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form id="form1" name="form1" method="post" action="">
+  <table width="200" border="1" class="table table-bordered">
+    <tr class="text-warning bg-dark" >
+      <th scope="col">#</th>
+      <th scope="col">DATE</th>
+      <th scope="col">ROOM</th>
+      <th scope="col">USER</th>
+      <th scope="col">&nbsp;</th>
+    </tr>
+      {% for i in data %}
+    <tr class="text-white">
+        <td>{{ forloop.counter }}</td>
+      <td>{{ i.date }}</td>
+      <td>{{ i.ROOM.id }} <br> {{ i.ROOM.Room_no }} <br> {{ i.ROOM.floor }} <br> {{ i.ROOM.vaccancy }} <br>{{ i.ROOM.amount }} <br>{{ i.ROOM.type }} </td>
+      <td>{{ i.USER.id }} <br> {{ i.USER.name }}  <br> {{ i.USER.email }} <br> {{ i.USER.phone }} <br> {{ i.USER.place }}
+          <br> {{ i.USER.adhar }}</td>
+{#         <br> {{ i.USER.age }} <br> {{ i.USER.parent_name }} <br> {{ i.USER.parent_contact }} <br> {{ i.USER.parent_email }} #}
+      <td><a href="/send_mail/{{ i.USER.id }}#hh"   class="btn btn-success mb-3" style="height: 2%; width: 80%">Send mail</a>
+         <p><a href="/add_payment/{{ i.id }}#hh" class="btn btn-success" style="height: 2%; width: 80%">Payment</a></p>
+         <p><a href="/view_payment/{{ i.id }}#hh" class="btn btn-success" style="height: 10%; width: 80%">View Payment</a></p>
+      <p><a href="/update_vaccant_room/{{ i.ROOM.id }}#hh" class="btn btn-success" style="height: 10%; width: 80%">Vaccant</a> </p>
+          <p><a href="/chat_user/{{ i.USER.id }}#hh" class="btn btn-success" style="height: 10%; width: 80%">Chat</a></p></td>
+    </tr>
+      {% endfor %}
+  </table>
+</form>
+</body>
+</html>
+{% endblock %}

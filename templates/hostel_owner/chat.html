@@ -1,0 +1,118 @@
+{% extends 'hostel_owner/Hostelowner_index.html' %}
+{% block body %}
+{#    <style>#}
+{#    .b{#}
+{#	padding: 20px;#}
+{#    width: 100px;#}
+{#    overflow: hidden;#}
+{#    display: inline-block;#}
+{#    white-space: nowrap;#}
+{#}#}
+{##}
+{#     table {#}
+{#        table-layout: fixed;#}
+{#        word-wrap: break-word;#}
+{#    }#}
+{##}
+{##}
+{#.oposite{#}
+{#	color: white;#}
+{#	background: #b73770;#}
+{#	padding: 20px;#}
+{#	border-radius: 5px;#}
+{#}#}
+{#.mine{#}
+{#	color: black;#}
+{#	background: #bae3d7;#}
+{#	padding: 20px;#}
+{#	border-radius: 5px;#}
+{#}#}
+{#    </style>#}
+<form action="" method="post">
+{% csrf_token %}
+<table id="t1" class="container" align="center">
+  </table>
+    <p></p>
+    <table id="t3" align="center"></table>
+    <table id="t4"  align="center" class="table table-bordered" style="border-style: double;width: 50%;color: white"></table><p></p>
+    <table id="t2" align="center">
+        <tr>
+            <td>
+        <input type="hidden" id="v"/></td>
+          <td><input type="hidden" id="h"/></td>
+          <td><input type="hidden" id="u" value="{{ id }}"/></td>
+        <th><input type="text" name="e" id="e" class="form-control" /></th>
+      <th><input type="button" name="chat" id="chat" value="chat" class="btn btn-success"/></th>
+            </tr>
+{#    </div>#}
+    </table>
+
+</form>
+
+<script type="text/javascript" src="/static/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        function abc() {
+            $.ajax({
+            url: '/chatrply',
+            type: 'post',
+            success: function (res) {
+                var rid=$("#u").val();
+                  a = res;
+                  b = a.status;
+                  if (b === "ok") {
+                      s = a.data
+                      d = a.id
+                      var len = s.length;
+                      $("#t4").text("");
+                        for (i = 0; i <= len; i++) {
+                            x = s[i];
+                            s_id = x.type;
+                            msg = x.chat;
+                            if (s_id === 'owner') {
+
+                                $("#t4").append('<tr align="right"><td  class="col-lg-4 col-12" colspan="2"><span class="mine">' + msg + '</span></td> </tr>')
+
+                            }
+                            if (s_id === 'user') {
+
+                                $("#t4").append('<tr align="left"> <td  class="col-lg-4 col-12" colspan="2"><span class="oposite">' + msg + '</span></td></tr>')
+                            }
+
+                        }
+                    }
+
+            },
+
+            error: function (err) {
+                bb = jQuery.parseJSON(err)
+                {#alert("error")#}
+
+            }
+        });
+
+        }
+        aa=setInterval(abc,1000)
+    });
+
+$("#chat").click(function () {
+    var k = $("#h").val()
+    var d = $("#e").val()
+    $.ajax({
+        url: '/chatsnd/{{ id }}',
+        type: 'POST',
+        data: {n: k, m: d},
+        success: function (res) {
+
+            result = res.stattus
+
+        },
+        error: function (err) {
+            bb = jQuery.parseJSON(err)
+        }
+
+    });
+$("#e").val("")
+});
+    </script>
+{% endblock %}
